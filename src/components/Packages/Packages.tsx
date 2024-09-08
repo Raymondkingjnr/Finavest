@@ -69,7 +69,7 @@ const Packages = () => {
       scale: 1,
       y: 0,
       opacity: 1,
-      transition: { duration: 3 },
+      transition: { duration: 1 },
     },
   };
 

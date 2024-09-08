@@ -66,7 +66,7 @@ const Offer = () => {
       scale: 1,
       x: 0,
       opacity: 1,
-      transition: { duration: 5 },
+      transition: { duration: 1 },
     },
   };
 

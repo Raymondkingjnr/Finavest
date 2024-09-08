@@ -7,6 +7,7 @@ import { signUp } from "next-auth-sanity/client";
 import { signIn, useSession } from "next-auth/react";
 import toast from "react-hot-toast";
 import { FaEye, FaEyeSlash } from "react-icons/fa";
+import { ImSpinner } from "react-icons/im";
 
 const defaultFormData = {
   email: "",
@@ -23,6 +24,8 @@ const AuthPage = () => {
   const { push } = useRouter();
   const [formData, setFormData] = useState(defaultFormData);
   const [showPassword, setShowPassword] = useState(false);
+  const [signInloading, setSignInLoading] = useState(false);
+  const [signUploading, setSignUpLoading] = useState(false);
 
   const handleInputChange = (e: ChangeEvent<HTMLInputElement>) => {
     const { name, value } = e.target;
@@ -39,6 +42,7 @@ const AuthPage = () => {
   }, [push, session]);
 
   const loginHandler = async () => {
+    setSignInLoading(true);
     try {
       await signIn();
       toast.success("sucess, Please Sign in");
@@ -47,10 +51,12 @@ const AuthPage = () => {
       console.log(error);
       toast.error("something went wrong");
     }
+    setSignInLoading(false);
   };
 
   const handleSubmit = async (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault();
+    setSignUpLoading(true);
 
     try {
       const user = await signUp(formData);
@@ -62,6 +68,7 @@ const AuthPage = () => {
       toast.error("something went wrong");
     } finally {
       setFormData(defaultFormData);
+      setSignUpLoading(false);
     }
   };
 
@@ -210,18 +217,33 @@ const AuthPage = () => {
 
             <button
               type="submit"
-              className="btn w-full"
+              className="btn buttonComp w-full"
               onClick={() => handleSubmit}
             >
-              Sign Up
+              {signUploading ? (
+                <span className="loader">
+                  <ImSpinner className="loader" size={25} />
+                </span>
+              ) : (
+                "Sign Up"
+              )}
             </button>
           </form>
 
-          <p className=" text-sm font-[500] ">
+          <p className=" text-base font-[600] ">
             Already have an account?{" "}
-            <span className="underline cursor-pointer" onClick={loginHandler}>
-              Login
-            </span>
+            <button
+              className=" w-[120px] buttonComp font-medium rounded-md h-[40px] bg-teal-600 cursor-pointer"
+              onClick={loginHandler}
+            >
+              {signInloading ? (
+                <span className="loader">
+                  <ImSpinner className="loader" size={25} />
+                </span>
+              ) : (
+                "  Sign In"
+              )}
+            </button>
           </p>
         </div>
       </section>

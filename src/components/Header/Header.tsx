@@ -80,34 +80,38 @@ const Header = () => {
             <div className=" hidden lg:flex gap-4">
               {session?.user ? (
                 <Link
-                  className=" grid place-content-center h-8 w-8 rounded-full p-3 bg-teal-100 mt-1"
                   href={`/users/${session.user.id}`}
+                  className="  w-[140px] py-2 uppercase btn text-center  hover:bg-indigo-900 transition-all duration-500  "
                 >
-                  <span className=" uppercase font-bold text-base text-gray-800">
-                    {/* {session.user.name.slice(0, 1)} */}
-                    <FaUser size={20} />
-                  </span>
+                  Start investing
                 </Link>
               ) : (
                 <button
                   className=" uppercase w-[140px] text-center bg-gray-600 btn "
                   onClick={() => push("/auth")}
                 >
-                  Sign Up
+                  Sign Up / Sign in
                 </button>
-              )}
-              {session?.user ? (
-                <button
-                  className="  w-[140px] uppercase btn text-center  hover:bg-indigo-900 transition-all duration-500  "
-                  onClick={() => push("/deposits")}
-                >
-                  Start investing
-                </button>
-              ) : (
-                ""
               )}
             </div>
-            <main>
+
+            {/* MOBILE VIEW */}
+            <main className=" flex items-center gap-4">
+              {session?.user ? (
+                <Link
+                  href={`/users/${session.user.id}`}
+                  className=" uppercase w-[126px] text-center py-2 lg:hidden block  bg-teal-500 hover:bg-teal-600 transition-all duration-700 font-medium text-xs h-[30px] rounded-md border-none shadow-sm   text-white "
+                >
+                  Start investing
+                </Link>
+              ) : (
+                <button
+                  className=" capitalize w-[126px] text-center lg:hidden block  bg-teal-500 hover:bg-teal-600 transition-all duration-700 font-medium text-xs h-[30px] rounded-md border-none shadow-sm   text-white "
+                  onClick={() => push("/auth")}
+                >
+                  Sign Up / Sign in
+                </button>
+              )}
               <RxHamburgerMenu
                 size={25}
                 className=" text-teal-600 flex lg:hidden"
@@ -142,7 +146,7 @@ const Header = () => {
               </nav>
             </main>
             <main className="flex gap-10 items-center justify-center">
-              {session?.user ? (
+              {session?.user && (
                 <Link
                   className="grid place-content-center h-8 w-8 rounded-full p-3 bg-teal-100 mt-1"
                   href={`/users/${session.user.id}`}
@@ -151,25 +155,6 @@ const Header = () => {
                     <FaUser size={20} />
                   </span>
                 </Link>
-              ) : (
-                <button
-                  className="uppercase w-[140px] text-center bg-gray-600 btn"
-                  onClick={() => {
-                    push("/auth"), handleCloseNav();
-                  }}
-                >
-                  Sign Up
-                </button>
-              )}
-              {session?.user && (
-                <button
-                  className="w-[140px] uppercase btn text-center hover:bg-indigo-900 transition-all duration-500"
-                  onClick={() => {
-                    push("/deposits"), handleCloseNav();
-                  }}
-                >
-                  Start investing
-                </button>
               )}
             </main>
           </div>

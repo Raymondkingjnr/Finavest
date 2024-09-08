@@ -35,12 +35,12 @@ const Btc = () => {
 
   const fadeInVariant = {
     hidden: { opacity: 0 },
-    visible: { opacity: 1, transition: { duration: 3 } },
+    visible: { opacity: 1, transition: { duration: 1 } },
   };
 
   const scaleInVariant = {
     hidden: { scale: 0.8, opacity: 0 },
-    visible: { scale: 1, opacity: 1, transition: { duration: 2 } },
+    visible: { scale: 1, opacity: 1, transition: { duration: 1 } },
   };
   return (
     <div className="bg-gray-50 px-4">

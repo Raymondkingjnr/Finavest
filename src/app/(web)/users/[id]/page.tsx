@@ -134,11 +134,11 @@ const UserDetailes = (props: { params: { id: string } }) => {
               <h2 className=" font-bold text-lg">Balance:</h2>
               <h1 className=" pt-5 font-semibold text-2xl">
                 $ {""}
-                {userData?.balance}
+                {userData?.balance ?? "0:00"}
               </h1>
               <button
                 onClick={toogglModal}
-                className=" w-[120px] h-[40px] bg-green-600 font-medium text-base rounded text-white mt-4"
+                className=" w-[120px] h-[40px] bg-teal-700 font-medium text-base rounded text-white mt-4"
               >
                 Withdrew
               </button>
@@ -147,13 +147,13 @@ const UserDetailes = (props: { params: { id: string } }) => {
               <h2 className=" font-bold text-lg">withdrews:</h2>
               <h1 className=" pt-5 font-semibold text-2xl">
                 - $ {""}
-                {userData?.balance}
+                {userData?.balance ?? "0:00"}
               </h1>
               <button
-                className=" w-[120px] h-[40px] bg-orange-600 font-medium text-base rounded text-white mt-4"
+                className=" w-fit px-3  h-[40px] bg-orange-600 font-medium text-base rounded text-white mt-4"
                 onClick={() => router.push("/deposits")}
               >
-                Deposit
+                Make a Deposit
               </button>
             </div>
           </main>
@@ -173,7 +173,13 @@ const UserDetailes = (props: { params: { id: string } }) => {
           </div>
           {currentNav === "deposits" ? (
             <div className=" hidden md:block">
-              <Table accountDetailes={userDeposit} />
+              {userDeposit && userDeposit.length > 0 ? (
+                <Table accountDetailes={userDeposit} />
+              ) : (
+                <h2 className="text-center font-semibold text-lg py-4">
+                  You dont have any deposits
+                </h2>
+              )}
             </div>
           ) : (
             <></>
@@ -181,7 +187,13 @@ const UserDetailes = (props: { params: { id: string } }) => {
 
           {currentNav === "withdrew" ? (
             <div className=" hidden md:block">
-              <Table accountDetailes={userWithdrew} />
+              {userWithdrew && userWithdrew.length > 0 ? (
+                <Table accountDetailes={userWithdrew} />
+              ) : (
+                <h2 className="text-center font-semibold text-lg py-4">
+                  You dont have any withdrews
+                </h2>
+              )}
             </div>
           ) : (
             <></>
@@ -194,71 +206,88 @@ const UserDetailes = (props: { params: { id: string } }) => {
           <h3 className=" font-semibold text-lg text-gray-800">
             Transaction History
           </h3>
-          {currentNav === "deposits" ? (
-            <div className=" flex flex-col gap-3">
-              {userDeposit?.map((item, index) => (
-                <div
-                  key={index}
-                  className=" border flex justify-between rounded shadow-md px-3 py-2 w-full"
-                >
-                  <span className=" flex flex-col gap-3">
-                    <h2 className=" font-semibold text-sm md:text-base">
-                      {item.token}
-                    </h2>
-                    <p className=" font-semibold text-sm md:text-base">
-                      {item._createdAt.split("T")[0]}
-                    </p>
-                  </span>
 
-                  <span className=" flex flex-col gap-3">
-                    <h2 className=" font-semibold text-sm md:text-base text-right">
-                      $ {""}
-                      {item.amount}
-                    </h2>
-                    <p
-                      className={`capitalize font-semibold text-sm md:text-base ${item.paymentStatus ? " text-green-600  " : "text-orange-400"}`}
+          {currentNav === "deposits" ? (
+            <div>
+              {userDeposit && userDeposit.length > 0 ? (
+                <div className=" flex flex-col gap-3">
+                  {userDeposit?.map((item, index) => (
+                    <div
+                      key={index}
+                      className=" border flex justify-between rounded shadow-md px-3 py-2 w-full"
                     >
-                      {" "}
-                      {item?.paymentStatus ? "Success" : "Pending"}
-                    </p>
-                  </span>
+                      <span className=" flex flex-col gap-3">
+                        <h2 className=" font-semibold text-sm md:text-base">
+                          {item.token}
+                        </h2>
+                        <p className=" font-semibold text-sm md:text-base">
+                          {item._createdAt.split("T")[0]}
+                        </p>
+                      </span>
+
+                      <span className=" flex flex-col gap-3">
+                        <h2 className=" font-semibold text-sm md:text-base text-right">
+                          $ {""}
+                          {item.amount}
+                        </h2>
+                        <p
+                          className={`capitalize font-semibold text-sm md:text-base ${item.paymentStatus ? " text-green-600  " : "text-orange-400"}`}
+                        >
+                          {" "}
+                          {item?.paymentStatus ? "Success" : "Pending"}
+                        </p>
+                      </span>
+                    </div>
+                  ))}
                 </div>
-              ))}
+              ) : (
+                <h2 className="text-center font-semibold text-lg py-4">
+                  You dont have any deposits
+                </h2>
+              )}
             </div>
           ) : (
             <></>
           )}
 
           {currentNav === "withdrew" ? (
-            <div className=" flex flex-col gap-3">
-              {userWithdrew?.map((item, index) => (
-                <div
-                  key={index}
-                  className=" border flex justify-between rounded shadow-md px-3 py-2 w-full"
-                >
-                  <span className=" flex flex-col gap-3">
-                    <h2 className=" font-semibold text-sm md:text-base">
-                      {item.token}
-                    </h2>
-                    <p className=" font-semibold text-sm md:text-base">
-                      {item._createdAt.split("T")[0]}
-                    </p>
-                  </span>
-
-                  <span className=" flex flex-col gap-3">
-                    <h2 className=" font-semibold text-sm md:text-base text-right">
-                      $ {""}
-                      {item.amount}
-                    </h2>
-                    <p
-                      className={`capitalize font-semibold text-sm md:text-base ${item.paymentStatus ? " text-green-600  " : "text-orange-400"}`}
+            <div>
+              {userWithdrew && userWithdrew.length > 0 ? (
+                <div className=" flex flex-col gap-3">
+                  {userWithdrew?.map((item, index) => (
+                    <div
+                      key={index}
+                      className=" border flex justify-between rounded shadow-md px-3 py-2 w-full"
                     >
-                      {" "}
-                      {item?.paymentStatus ? "Success" : "Pending"}
-                    </p>
-                  </span>
+                      <span className=" flex flex-col gap-3">
+                        <h2 className=" font-semibold text-sm md:text-base">
+                          {item.token}
+                        </h2>
+                        <p className=" font-semibold text-sm md:text-base">
+                          {item._createdAt.split("T")[0]}
+                        </p>
+                      </span>
+
+                      <span className=" flex flex-col gap-3">
+                        <h2 className=" font-semibold text-sm md:text-base text-right">
+                          $ {""}
+                          {item.amount}
+                        </h2>
+                        <p
+                          className={`capitalize font-semibold text-sm md:text-base ${item.paymentStatus ? " text-green-600  " : "text-orange-400"}`}
+                        >
+                          {" "}
+                          {item?.paymentStatus ? "Success" : "Pending"}
+                        </p>
+                      </span>
+                    </div>
+                  ))}
                 </div>
-              ))}
+              ) : (
+                <h2 className="text-center font-semibold text-lg py-4">
+                  You dont have any withdrews
+                </h2>
+              )}
             </div>
           ) : (
             <></>

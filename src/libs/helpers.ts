@@ -8,15 +8,13 @@ export const formatCurrency = (
   );
 };
 
-function formatCurrencyUSD(amount: number): string {
-  // Check if the input is a valid number
-  if (isNaN(amount)) {
-    throw new Error("Invalid number");
-  }
-
-  // Format the number as USD currency
-  return new Intl.NumberFormat("en-US", {
+export const formatCurrencyUSD = (
+  amount: number,
+  currency: string = "USD",
+  locale: string = "en-US"
+): string => {
+  return amount.toLocaleString(locale, {
     style: "currency",
-    currency: "USD",
-  }).format(amount);
-}
+    currency: currency,
+  });
+};

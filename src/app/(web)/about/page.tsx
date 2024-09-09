@@ -42,10 +42,10 @@ const AboutUsPage = () => {
         <main className=" relative z-10 md:w-[560px]">
           <h2 className="text-3xl font-bold text-gray-50">About Us</h2>
           <p className="text-gray-50 mt-4 font-medium text-base leading-8">
-            At Finavest, we specialize in creating impactful digital experiences
-            that connect brands with their audiences. From innovative strategies
-            to cutting-edge technology, we are here to elevate your business to
-            new heights.
+            At Financier, we specialize in creating impactful digital
+            experiences that connect brands with their audiences. From
+            innovative strategies to cutting-edge technology, we are here to
+            elevate your business to new heights.
           </p>
           {/* <button className="mt-6 btn text-white capitalize w-[120px] font-medium">
             About Us

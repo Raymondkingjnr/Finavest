@@ -136,7 +136,7 @@ const DepositPage = () => {
               value={shortBtc}
               readOnly
             />
-            <span className="absolute right-2 top-2 items-center flex gap-7">
+            <span className="absolute right-2 bottom-3 top-2 items-center flex gap-7">
               <BtcIcon />
               <FaCopy
                 className="  text-gray-600"
@@ -153,8 +153,8 @@ const DepositPage = () => {
               value={shorteth}
               readOnly
             />
-            <span className="absolute right-2 top-2 items-center flex gap-7">
-              <EthIcon />
+            <span className="absolute right-2  bottom-3 top-2 items-center flex gap-7">
+              <EthIcon className=" bottom-1" />
               <FaCopy
                 className=" text-gray-600"
                 size={20}
@@ -170,8 +170,8 @@ const DepositPage = () => {
               value={shortBnb}
               readOnly
             />
-            <span className="absolute right-2 top-2 items-center flex gap-7">
-              <BnbIcon />
+            <span className="absolute right-2  bottom-3 top-2 items-center flex gap-7">
+              <BnbIcon className=" bottom-1" />
               <FaCopy
                 className=" text-gray-600"
                 size={20}
@@ -188,8 +188,8 @@ const DepositPage = () => {
               value={shortSol}
               readOnly
             />
-            <span className="absolute right-2 top-2 items-center flex gap-7">
-              <SolanaIcon />
+            <span className="absolute right-2  bottom-3 top-2 items-center flex gap-7">
+              <SolanaIcon className=" bottom-1" />
               <FaCopy
                 className=" text-gray-600"
                 size={20}

@@ -1,3 +1,4 @@
+import { formatCurrency } from "@/libs/helpers";
 import { Deposits } from "@/modals/user";
 import { FC } from "react";
 
@@ -23,7 +24,7 @@ const Table: FC<Props> = ({ accountDetailes }) => {
                 {item.token}
               </th>
               <td className="px-6 py-4 capitalize font-semibold text-sm md:text-base">
-                ${item.amount}
+                {formatCurrency(item.amount)}
               </td>
               <td
                 className={`px-6 py-4 capitalize font-semibold text-sm md:text-base ${item.paymentStatus ? " text-green-600  " : "text-orange-400"}`}

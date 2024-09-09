@@ -79,21 +79,6 @@ const user = {
       title: "Balance",
       type: "number",
     }),
-
-    defineField({
-      name: "widthdrew",
-      title: "Widthdrew",
-      type: "array",
-      of: [
-        {
-          type: "object",
-          fields: [
-            { name: "amount", title: "Amount", type: "number" },
-            { name: "date", title: "Date", type: "date" },
-          ],
-        },
-      ],
-    }),
   ],
 };
 

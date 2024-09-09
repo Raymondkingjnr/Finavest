@@ -67,17 +67,15 @@ const PaymentModal: FC<Props> = (props) => {
             value={token}
           />
           <div className="flex flex-wrap justify-center gap-3">
-            {["BTC", "ETH", "BNB", "SOL", "USDT", "USDC"].map(
-              (coin: string, index) => (
-                <div
-                  key={index}
-                  onClick={() => setToken(coin)}
-                  className={`${token === coin ? " text-green-300 bg-[#ff8a2505] border border-green-500" : ""} border border-[#f7f7f7] rounded py-[5px] px-[8px]`}
-                >
-                  <p className=" font-medium text-[14px] text-center">{coin}</p>
-                </div>
-              )
-            )}
+            {["BTC", "ETH", "BNB", "SOL"].map((coin: string, index) => (
+              <div
+                key={index}
+                onClick={() => setToken(coin)}
+                className={`${token === coin ? " text-green-300 bg-[#ff8a2505] border border-green-500" : ""} border border-[#f7f7f7] rounded py-[5px] px-[8px]`}
+              >
+                <p className=" font-medium text-[14px] text-center">{coin}</p>
+              </div>
+            ))}
           </div>
         </div>
 

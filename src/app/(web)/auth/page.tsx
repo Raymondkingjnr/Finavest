@@ -1,13 +1,13 @@
 "use client";
 
 import React, { ChangeEvent, FormEvent, useEffect, useState } from "react";
-import { FcGoogle } from "react-icons/fc";
 import { useRouter } from "next/navigation";
 import { signUp } from "next-auth-sanity/client";
 import { signIn, useSession } from "next-auth/react";
 import toast from "react-hot-toast";
 import { FaEye, FaEyeSlash } from "react-icons/fa";
 import { ImSpinner } from "react-icons/im";
+import { FcGoogle } from "react-icons/fc";
 
 const defaultFormData = {
   email: "",
@@ -79,10 +79,20 @@ const AuthPage = () => {
       <section className=" px-5 mx-2  flex items-center justify-center text-white relative">
         <div className="absolute z-[0] w-[60%] h-[60%] top-0 -right-[50%] rounded-full white__gradient " />
         <div className=" py-5  space-y-4 md:bg-[#212733] rounded-md px-0 md:px-5 lg:px-6 w-full lg:w-[45%] mx-auto">
-          <div className="flex mb-8  items-center justify-between">
-            <h1 className=" text-[15px]  font-semibold leading-7 tracking-wider">
+          <div className="flex mb-8 flex-col gap-4  items-center justify-center">
+            <h1 className=" text-[15px]  font-semibold tracking-wider">
               Create an Account
             </h1>
+            <span className=" font-semibold text-[14px]">OR</span>
+            <div
+              className=" h-11 w-11 rounded-full grid place-content-center bg-gray-600 shadow-md"
+              onClick={loginHandler}
+            >
+              <FcGoogle
+                className="cursor-pointer text-black dark:text-white"
+                size={36}
+              />
+            </div>
           </div>
 
           <form className="space-y-4 md:space-y-6" onSubmit={handleSubmit}>

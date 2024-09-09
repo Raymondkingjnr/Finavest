@@ -1,7 +1,7 @@
 "use client";
 import useSWR from "swr";
 import axios from "axios";
-import { User } from "../../../../modals/user";
+import { Deposits, User } from "../../../../modals/user";
 import { signOut } from "next-auth/react";
 import Table from "@/components/Table/Table";
 import { getUserDeposit, getUserWithdrew } from "@/libs/api";
@@ -10,6 +10,9 @@ import { useState } from "react";
 import toast from "react-hot-toast";
 import PaymentModal from "@/components/PaymentModal/PaymentModal";
 import BackDrop from "@/components/BackDrop/BackDrop";
+import { formatCurrency } from "@/libs/helpers";
+import LoadingSpinner from "../../loading";
+import { formatCurrencyUSD } from "@/libs/helpers";
 
 const UserDetailes = (props: { params: { id: string } }) => {
   const {
@@ -37,9 +40,62 @@ const UserDetailes = (props: { params: { id: string } }) => {
     return data;
   };
 
+  const {
+    data: userDeposit,
+    error,
+    isLoading,
+  } = useSWR("/api/userDeposit", fetchUserDeposit);
+
+  const {
+    data: userWithdrew,
+    error: iserror,
+    isLoading: withdrewIsLoading,
+  } = useSWR("/api/userWithdrew", fetchUserWithdrew);
+
+  const {
+    data: userData,
+    isLoading: loadinguserData,
+    error: errorUser,
+  } = useSWR("/api/users", fetchUserData);
+
+  if (errorUser) throw new Error(errorUser);
+
+  if (!userData || !userWithdrew || !userDeposit) return <LoadingSpinner />;
+
+  const calculateTotalWithdrawals = (withdrawalsArray: any) => {
+    return withdrawalsArray
+      ?.filter((withdrawal: any) => withdrawal.paymentStatus === true) // Filter for paymentStatus true
+      ?.reduce((total: any, withdrawal: any) => total + withdrawal.amount, 0); // Sum the amounts
+  };
+
+  const calculateTotalBalance = (
+    withdrawalsArray: any,
+    depositsArray: any,
+    initialBalance: number
+  ): number => {
+    const totalWithdrawals = withdrawalsArray
+      ?.filter((withdrawal: any) => withdrawal.paymentStatus === true)
+      ?.reduce((total: any, withdrawal: any) => total + withdrawal.amount, 0);
+
+    const totalDeposits = depositsArray
+      ?.filter((deposit: any) => deposit.paymentStatus === true)
+      ?.reduce((total: any, deposit: any) => total + deposit.amount, 0);
+
+    const totalBalance = initialBalance + totalDeposits - totalWithdrawals;
+
+    return totalBalance;
+  };
+
   const onSubmit = async () => {
     if (!token || !amount) {
-      return toast.error("provide a rating text and a rating");
+      return toast.error("All fields my be filled");
+    }
+
+    if (
+      amount >
+      calculateTotalBalance(userWithdrew, userDeposit, userData?.balance)
+    ) {
+      return toast.error("insufficient balance");
     }
 
     setSubmittingPayment(true);
@@ -60,26 +116,6 @@ const UserDetailes = (props: { params: { id: string } }) => {
       setIsPaymentVisible(false);
     }
   };
-
-  const {
-    data: userDeposit,
-    error,
-    isLoading,
-  } = useSWR("/api/userDeposit", fetchUserDeposit);
-
-  const {
-    data: userWithdrew,
-    error: iserror,
-    isLoading: withdrewIsLoading,
-  } = useSWR("/api/userWithdrew", fetchUserWithdrew);
-
-  const {
-    data: userData,
-    isLoading: loadinguserData,
-    error: errorUser,
-  } = useSWR("/api/users", fetchUserData);
-
-  if (errorUser) throw new Error(errorUser);
 
   return (
     <div className="relative  p-5 mt-[4rem]">
@@ -133,8 +169,14 @@ const UserDetailes = (props: { params: { id: string } }) => {
             <div className=" w-full h-[180px] md:w-[300px] mb-3 p-5 rounded-md shadow-md bg-green-100">
               <h2 className=" font-bold text-lg">Balance:</h2>
               <h1 className=" pt-5 font-semibold text-2xl">
-                $ {""}
-                {userData?.balance ?? "0:00"}
+                {/* ${formatCurrencyUSD(userData?.balance ?? "00.0")} */}
+                {formatCurrencyUSD(
+                  calculateTotalBalance(
+                    userWithdrew,
+                    userDeposit,
+                    userData?.balance
+                  )
+                )}
               </h1>
               <button
                 onClick={toogglModal}
@@ -146,8 +188,7 @@ const UserDetailes = (props: { params: { id: string } }) => {
             <div className=" w-full h-[180px] md:w-[300px] mb-3 p-5 rounded-md shadow-md bg-orange-50">
               <h2 className=" font-bold text-lg">withdrews:</h2>
               <h1 className=" pt-5 font-semibold text-2xl">
-                - $ {""}
-                {userData?.balance ?? "0:00"}
+                {formatCurrencyUSD(calculateTotalWithdrawals(userWithdrew))}
               </h1>
               <button
                 className=" w-fit px-3  h-[40px] bg-orange-600 font-medium text-base rounded text-white mt-4"
@@ -227,8 +268,7 @@ const UserDetailes = (props: { params: { id: string } }) => {
 
                       <span className=" flex flex-col gap-3">
                         <h2 className=" font-semibold text-sm md:text-base text-right">
-                          $ {""}
-                          {item.amount}
+                          {formatCurrency(item.amount)}
                         </h2>
                         <p
                           className={`capitalize font-semibold text-sm md:text-base ${item.paymentStatus ? " text-green-600  " : "text-orange-400"}`}
@@ -270,8 +310,8 @@ const UserDetailes = (props: { params: { id: string } }) => {
 
                       <span className=" flex flex-col gap-3">
                         <h2 className=" font-semibold text-sm md:text-base text-right">
-                          $ {""}
-                          {item.amount}
+                          {""}
+                          {formatCurrency(item.amount)}
                         </h2>
                         <p
                           className={`capitalize font-semibold text-sm md:text-base ${item.paymentStatus ? " text-green-600  " : "text-orange-400"}`}

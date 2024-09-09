@@ -68,10 +68,10 @@ const Header = () => {
       >
         <section className=" py-4 flex justify-between items-center container mx-auto ">
           <h3
-            className=" font-bold text-lg text-teal-700 font-mono"
+            className=" uppercase font-bold text-lg text-teal-700 font-mono"
             onClick={() => push("/")}
           >
-            FINAVEST
+            Financier
           </h3>
           <main className=" justify-between items-center gap-16 flex   ">
             <nav className=" gap-10 font-bold cursor-pointer hidden lg:flex">
@@ -127,10 +127,10 @@ const Header = () => {
           <div className={`nav-container ${showNav ? "show" : ""} lg:hidden`}>
             <header className="flex justify-between items-center">
               <h3
-                className="font-bold text-lg text-teal-700 font-mono"
+                className=" uppercase font-bold text-lg text-teal-700 font-mono"
                 onClick={() => push("/")}
               >
-                FINAVEST
+                Financier{" "}
               </h3>
               <RiCloseCircleLine
                 size={25}

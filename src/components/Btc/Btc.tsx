@@ -55,7 +55,7 @@ const Btc = () => {
           >
             <div className=" p-5 w-[350px] md:w-[400px] bg-white shadow-md flex flex-col gap-7 ">
               <h3 className=" font-semibold text-base">Advisors</h3>
-              <p className=" text-base leading-7 font-medium">
+              <p className=" text-sm leading-7 font-medium">
                 Experienced professionals guiding you towards smart financial
                 decisions and secure long-term investments for a prosperous
                 future.
@@ -103,7 +103,7 @@ const Btc = () => {
                   className=" object-contain w-full rounded-md"
                 />
               </div>
-              <p className=" text-base leading-7 font-medium">
+              <p className=" text-sm leading-7 font-medium">
                 Experience seamless transactions with our Instant Exchange
                 service, enabling you to effortlessly convert currencies or
                 assets in real-time, ensuring convenience and efficiency at your

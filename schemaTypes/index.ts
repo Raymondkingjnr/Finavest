@@ -3,6 +3,7 @@ import address from "./address";
 import deposit from "./deposit";
 import widthdrew from "./withdrews";
 import verificationToken from "./verificationToken";
+import account from "./account";
 
 export const schemaTypes = [
   user,
@@ -10,4 +11,5 @@ export const schemaTypes = [
   deposit,
   widthdrew,
   verificationToken,
+  account,
 ];

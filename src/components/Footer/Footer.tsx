@@ -144,7 +144,7 @@ const Footer = () => {
 
       <div className="border-t border-gray-700 mt-8 pt-6 flex flex-col md:flex-row items-center justify-between container mx-auto px-4">
         <p className="text-sm">
-          &copy; 2024 Finavest. All rights reserved. Powered by MoxCreative.
+          &copy; 2024 Financier. All rights reserved. Powered by MoxCreative.
         </p>
         <div className="flex space-x-4 mt-4 md:mt-0">
           <a href="#" className="hover:text-teal-400">

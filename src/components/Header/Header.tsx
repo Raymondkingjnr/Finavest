@@ -67,7 +67,10 @@ const Header = () => {
         className={`fixed z-30 w-full top-0 text-white px-4 ${scrolled ? " bg-black/95 backdrop:blur-3xl" : "bg-transparent"} transition-all duration-700`}
       >
         <section className=" py-4 flex justify-between items-center container mx-auto ">
-          <h3 className=" font-bold text-lg text-teal-700 font-mono">
+          <h3
+            className=" font-bold text-lg text-teal-700 font-mono"
+            onClick={() => push("/")}
+          >
             FINAVEST
           </h3>
           <main className=" justify-between items-center gap-16 flex   ">
@@ -123,7 +126,10 @@ const Header = () => {
         {showNav && (
           <div className={`nav-container ${showNav ? "show" : ""} lg:hidden`}>
             <header className="flex justify-between items-center">
-              <h3 className="font-bold text-lg text-teal-700 font-mono">
+              <h3
+                className="font-bold text-lg text-teal-700 font-mono"
+                onClick={() => push("/")}
+              >
                 FINAVEST
               </h3>
               <RiCloseCircleLine

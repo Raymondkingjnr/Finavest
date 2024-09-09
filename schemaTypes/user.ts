@@ -30,7 +30,6 @@ const user = {
       name: "password",
       title: "Password",
       type: "string",
-      validation: (Rule) => Rule.required(),
       hidden: true,
     }),
     defineField({

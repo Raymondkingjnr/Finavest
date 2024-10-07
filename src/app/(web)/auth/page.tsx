@@ -71,6 +71,7 @@ const AuthPage = () => {
       setSignUpLoading(false);
     }
   };
+ 
 
   const inputStyles =
     "text-[15px] sm:text-sm text-white font-medium bg-[#0b0d11] mt-3 border-none focus:active:bg-black outline-none w-full px-2 h-[45px] rounded block";

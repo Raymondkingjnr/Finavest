@@ -22,7 +22,23 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en">
-      <meta name="monetag" content="b9345bbec4070fbcdcfd94e7618cf24f"></meta>
+      <script type="text/javascript" crossOrigin="anonymous" async>
+        {`
+          atOptions = {
+            'key' : 'a97778949d854e5b2d6fb970b480ac06',
+            'format' : 'iframe',
+            'height' : 250,
+            'width' : 300,
+            'params' : {}
+          };
+        `}
+      </script>
+      <script
+        type="text/javascript"
+        src="//www.topcpmcreativeformat.com/a97778949d854e5b2d6fb970b480ac06/invoke.js"
+        crossOrigin="anonymous"
+        async
+      ></script>
       <body className={urbanist.className}>
         <NextAuthProvider>
           <Toast />

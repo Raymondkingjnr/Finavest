@@ -22,6 +22,7 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en">
+      <meta name="monetag" content="b9345bbec4070fbcdcfd94e7618cf24f"></meta>
       <body className={urbanist.className}>
         <NextAuthProvider>
           <Toast />
